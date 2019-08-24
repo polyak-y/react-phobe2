@@ -1,0 +1,32 @@
+.SearchPanel {
+
+  @media (max-width: 600px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .input-field {
+    margin-bottom: 0;
+
+    input {
+      padding-left: 40px;
+      box-sizing: border-box;
+      background: url('../../img/avatar.svg') no-repeat left center;
+      background-size: 30px;
+    }
+  }
+
+  .input-field input[type=text].valid {
+    border-bottom: 1px solid #9e9e9e;
+    box-shadow: 0 1px 0 0 transparent;
+  }
+
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #0277bd ;
+    box-shadow: 0 1px 0 0 #0277bd ;
+  }
+
+  .input-field input[type=text]:focus + label {
+    color: #0277bd;
+  }
+}

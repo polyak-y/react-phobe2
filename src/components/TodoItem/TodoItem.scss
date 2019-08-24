@@ -1,0 +1,74 @@
+.collapsible {
+  &-header {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    i {
+      font-size: 25px;
+
+      &.orange-text {
+        font-size: 30px;
+        margin-left: auto;
+      }
+    }
+
+    .arrowRotate {
+      transition: transform .25s ease-in-out;
+    }
+
+    .topArrow {
+      transform: rotate(180deg);
+    }
+  }
+
+  &-body {
+    position: relative;
+    background: rgba(255, 255, 255, .3);
+
+    @media (max-width: 600px) {
+      padding: 5px;
+      padding-top: 60px;
+    }
+
+    &-button {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
+  }
+}
+
+.collection {
+  &-item {
+    display: flex;
+    align-items: center;
+  }
+
+  strong {
+    margin-right: 5px;
+    width: 160px;
+  }
+
+  input {
+    margin: 0!important;
+    padding-left: 5px!important;
+    height: 35px!important;   
+    
+    &:focus {
+      border-bottom: 1px solid #0277BD!important;
+      box-shadow: 0 1px 0 0 #0277BD!important;
+    }
+  }
+  
+  input[readonly] {    
+    border-bottom:1px solid transparent!important;
+    box-shadow: none!important;
+
+    &:focus {
+      border-bottom: 1px solid transparent!important;
+      box-shadow: none!important;
+    }
+  }
+}
+
