@@ -15,6 +15,7 @@ function App() {
     const list = JSON.parse(localStorage.getItem('phoneList')) || []
     list.sort((a, b) =>  a.name.localeCompare(b.name))
     dispatch(addListPhoneInState(list));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   useEffect(() => {
