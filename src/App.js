@@ -10,11 +10,12 @@ import './App.scss'
 function App() {     
   const dispatch = useDispatch(); 
   const listReduce = useSelector(state => state.phoneListReducer.phoneList)
-  
+    
   useEffect(() => {  
     const list = JSON.parse(localStorage.getItem('phoneList')) || []
-    list.sort((a, b) =>  a.name.localeCompare(b.name))
+    list.sort((a, b) =>  a.name.localeCompare(b.name))    
     dispatch(addListPhoneInState(list));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   useEffect(() => {

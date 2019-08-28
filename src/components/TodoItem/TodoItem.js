@@ -9,11 +9,8 @@ const TodoItem = (props) => {
   const [readonlyState, setReadonlyState] = useState(true)
   const [arrowState, setArrowState] = useState(false)
   const [valueInput, setValueInput] = useState({...props})
-
   const dispatch = useDispatch(); 
-
   const listReduce = useSelector(state => state.phoneListReducer.phoneList)
-  const listSearch = useSelector(state => state.phoneListReducer.searchList)
 
   const editPhone = () => {
     setReadonlyState(false)
@@ -25,18 +22,17 @@ const TodoItem = (props) => {
       setReadonlyState(true)
 
       const editPhone = {...valueInput}
+
       for(var key in editPhone) {
         if(!editPhone[key]) editPhone[key] = 'Запись отсутствует'
       }
       setValueInput({...editPhone})
 
-      const ind = listReduce.findIndex(person => person.id === valueInput.id)       
-      listReduce[ind] = editPhone
+      const ind = listReduce.findIndex(person => person.id === valueInput.id)      
+      const newListReduce = [...listReduce] 
+      newListReduce[ind] = editPhone
 
-      const indSearch = listSearch.findIndex(person => person.id === valueInput.id)    
-      listSearch[indSearch] = editPhone
-
-      dispatch(updateListPhoneInState([...listReduce], [...listSearch])) 
+      dispatch(updateListPhoneInState(newListReduce)) 
     } else {
       M.toast({html: 'Поля "Ф.И.О" и "Телефон" обязательны для заполнения!'})
     }
@@ -44,15 +40,15 @@ const TodoItem = (props) => {
 
   const changeHandler = event => {
     const key = event.target.dataset.name
-    valueInput[key] = event.target.value
-    setValueInput({...valueInput})
+    const newValueInput = {...valueInput}
+    newValueInput[key] = event.target.value
+    setValueInput(newValueInput)
   }
 
   const deletePerson = (event) => {
     event.stopPropagation()
     const newList = listReduce.filter(person => person.id !== props.id)
-    const newlistSearch = listSearch.filter(person => person.id !== props.id)
-    dispatch(updateListPhoneInState(newList, newlistSearch)) 
+    dispatch(updateListPhoneInState(newList)) 
     M.toast({html: 'Абонент из списка удален!'})
   }
 

@@ -1,4 +1,4 @@
-import { ADD_LIST, FILTER, UPDATE } from "./actionType";
+import { ADD_LIST, UPDATE } from "./actionType";
 
 export function addListPhoneInState(list) {
   return {
@@ -7,17 +7,9 @@ export function addListPhoneInState(list) {
   } 
 }
 
-export function updateListPhoneInState (list, searchList) {
+export function updateListPhoneInState (list) {
   return {
     type: UPDATE,
-    payload: list,
-    payloadSearch: searchList
+    payload: list
   } 
-}
-
-export function searchFilter(filterList) {
-   return {
-    type: FILTER,
-    payload: filterList
-  }
 }

@@ -4,36 +4,46 @@ import EmptyPhone from '../EmptyPhone/EmptyPhone'
 import SearchPanel from '../SearchPanel/SearchPanel'
 import './TodoList.scss'
 import M from "materialize-css/dist/js/materialize.min.js"
-import { useSelector, useDispatch } from 'react-redux'
-import { searchFilter } from '../../store/actions/actionFunc'
+import { useSelector } from 'react-redux'
 import Loader from '../Loader/Loader';
 
 const TodoList = () => {  
-  const listPhoneSearch = useSelector((state) => state.phoneListReducer.searchList)
   const listPhoneState = useSelector((state) => state.phoneListReducer.phoneList)
   const isLoading = useSelector((state) => state.phoneListReducer.isLoading)
 
-  const dispatch = useDispatch()
   const accordionRef = useRef(null);  
   const [valueInput, setValueInput] = useState('')
+  const [search, setSearch] = useState(null)
   
   useEffect(() => {  
     M.Collapsible.init(accordionRef.current, {
       accordion: false
     })    
-  },)
+  })
+
+  useEffect(() => {
+    const filterList = listPhoneState.filter(person => person.name.toLowerCase().indexOf(valueInput.toLowerCase().trim()) === 0)
+    setSearch(filterList)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listPhoneState])
 
   const searchHandler = (event) => { 
     setValueInput(event.target.value) 
-    const filterList = listPhoneState.filter(person => person.name.toLowerCase().indexOf(event.target.value.toLowerCase().trim()) === 0)
-    dispatch(searchFilter(filterList))
-  }  
 
-  let todoItem = listPhoneSearch.map(person => {
+    const filterList = listPhoneState.filter(person => {
+        return person.name.toLowerCase().indexOf(event.target.value.toLowerCase().trim()) === 0
+      }      
+    )   
+    setSearch(filterList)
+  }  
+  
+  const arr = search ? search : listPhoneState
+
+  let todoItem = arr.map(person => {
     return (
       <TodoItem key={person.id} {...person} /> 
     )  
-  })
+  })  
 
   return (
     <>      
